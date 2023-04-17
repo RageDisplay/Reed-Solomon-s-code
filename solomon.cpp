@@ -1,11 +1,12 @@
 #include <iostream>
 #include <vector>
+#include <cstring>
 
 using namespace std;
 
 const int MAXN = 100; // максимальное количество символов в сообщении
-const int K = 6; // количество символов, используемых для кодирования
-const int N = 8; // общее количество символов (K + M), где M - количество символов для коррекции ошибок
+int K; // количество символов, используемых для кодирования
+int N; // общее количество символов (K + M), где M - количество символов для коррекции ошибок
 
 int gf_add(int a, int b) {
     return a ^ b;
@@ -106,18 +107,19 @@ bool decode(vector<int>& received, vector<int>& decoded) {
 
 int main() {
     vector<int> message(MAXN);
-    vector<int> code(N);
-    vector<int> received(N);
     vector<int> decoded(MAXN);
 
     // ввод сообщения
     cout << "Enter message: ";
     string s;
-    cin >> s;
+    getline(cin, s);
+    K = s.length();
+    N = K+2;
     for (int i = 0; i < s.length(); ++i) {
         message[i] = s[i];
     }
-
+    vector<int> code(N);
+    vector<int> received(N);
     // кодирование
     encode(message, code);
     
@@ -129,7 +131,7 @@ int main() {
 
     // восстановление сообщения
     if (decode(received, decoded)) {
-        cout << "Decoded message: ";
+        cout << "\nDecoded message: ";
         for (int i = 0; i < K; ++i) {
             cout << char(decoded[i]);
         }
