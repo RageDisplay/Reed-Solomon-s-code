@@ -115,7 +115,7 @@ int main() {
     getline(cin, s);
     K = s.length();
     N = K+2;
-    for (int i = 0; i < s.length(); ++i) {
+    for (int i = 0; i < K; ++i) {
         message[i] = s[i];
     }
     vector<int> code(N);
@@ -128,7 +128,8 @@ int main() {
         received[i] = code[i];
         cout<<received[i];
     }
-
+    //received[2]=5;
+    //received[7]=3;
     // восстановление сообщения
     if (decode(received, decoded)) {
         cout << "\nDecoded message: ";
